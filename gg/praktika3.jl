@@ -1,52 +1,38 @@
-function mark_stairway(r::Robot)
+function mark_field(r::Robot)
     move1 = return_steps(r, Sud)
     move2 = return_steps(r, Ost)
-    s::HorizonSide = Ost
-    n = 0
-    
-    while isborder(r, West) == false
-        n += 1
-        putmarker!(r)
-        move!(r, West)
+    s::HorizonSide  = West
 
-    end
-
-    putmarker!(r)
-    
-    
-
-    l = 0
     while isborder(r, Nord) == false
-        move!(r, Nord)
-        if s == Ost
-            k = n - l 
-            for i in 1:k
-                putmarker!(r)
-                move!(r, s)
-            end
-            for i in 1:l
-                move!(r, s)
-            end
-            l += 1
-            s = West
-        elseif s == West
-            k = n - l
-            for i in 1:l 
-                move!(r, s)
-            end
-            for i in 1:k
-                
-                move!(r, s)
-                putmarker!(r)
-            
-            end
-            l += 1
+        putmarkers!(r, s)
+        move!(r,Nord)
+        putmarker!(r)
+        if s == West
             s = Ost
+        else
+            s = West
         end
     end
-end
 
     
+    
+    while isborder(r, s) == false
+        putmarkers!(r, s)
+    end
+
+    while isborder(r, Sud) == false
+        move!(r, Sud)
+    end
+
+    while isborder(r, Ost) == false
+        move!(r, Ost)
+    end
+
+    do_steps(r, Nord, move1)
+    do_steps(r, West, move2)
+
+end
+
 function putmarkers!(r::Robot, side::HorizonSide)
     while isborder(r,side) == false
         putmarker!(r)
