@@ -12,9 +12,6 @@ function mark_stairway(r::Robot)
     end
 
     putmarker!(r)
-    
-    
-
     l = 0
     while isborder(r, Nord) == false
         move!(r, Nord)
@@ -44,6 +41,17 @@ function mark_stairway(r::Robot)
             s = Ost
         end
     end
+
+    while isborder(r, Sud) == false
+        move(r, Sud)
+    end
+
+    while isborder(r, Ost) == false
+        move(r, Ost)
+    end
+
+    do_steps(r, Nord, move1)
+    do_steps(r, West, move2)
 end
 
     
@@ -69,3 +77,4 @@ function do_steps(r::Robot, side::HorizonSide, nun_sreps::Int64)
         move!(r, side)
     end
 end
+

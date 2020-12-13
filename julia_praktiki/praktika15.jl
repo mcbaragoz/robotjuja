@@ -1,4 +1,4 @@
-function ugli_polya!(r::Robot)
+function mark_frame_with_borders(r::Robot)
     a = []
     s::HorizonSide = Ost
     n = 0
@@ -21,10 +21,7 @@ function ugli_polya!(r::Robot)
     side::HorizonSide = Nord
 
     for _ in 1:4
-        while isborder(r, side) == false
-            move!(r, side)
-        end
-        putmarker!(r)
+        putmarkers!(r, side)
         side = next_clock(side)
     end
     
