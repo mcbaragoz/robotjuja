@@ -1,10 +1,10 @@
 function chess!(r::Robot)
     move1 = return_steps(r, Sud)
     move2 = return_steps(r, West)
-    chess_raw!(r, Ost)
+    chess_raw!(r, Ost) #маркируем первый ряд
     s::HorizonSide = West
     while isborder(r, s) == false
-        if ismarker(r) == false 
+        if ismarker(r) == false  # ифы нужны для сохранения шахматного порядка
             move!(r, Nord)
             chess_raw!(r, s)
         else
@@ -12,11 +12,7 @@ function chess!(r::Robot)
             move!(r, s)
             chess_raw!(r, s)
         end
-        if s == West
-            s = Ost
-        else
-            s = West
-        end
+        s = inverse(s)
         if isborder(r, Nord) == true
             break
         end
@@ -35,14 +31,11 @@ function chess!(r::Robot)
     putmarker!(r)
 end
 
+
 function chess_raw!(r::Robot, side::HorizonSide)
     while isborder(r, side) == false
         putmarker!(r)
-        if isborder(r, side) == false
-            move!(r, side)
-        else
-            break
-        end
+        move!(r, side)
         if isborder(r, side) == false
             move!(r, side)
         else
@@ -50,6 +43,21 @@ function chess_raw!(r::Robot, side::HorizonSide)
         end
     end
 end
+# function chess_raw!(r::Robot, side::HorizonSide)
+#     while isborder(r, side) == false
+#         putmarker!(r)
+#         if isborder(r, side) == false
+#             move!(r, side)
+#         else
+#             break
+#         end
+#         if isborder(r, side) == false
+#             move!(r, side)
+#         else
+#             break
+#         end
+#     end
+# end
 function return_steps(r::Robot, side::HorizonSide)
     nun_sreps = 0
     while isborder(r, side) == false
@@ -63,3 +71,5 @@ function do_steps(r::Robot, side::HorizonSide, nun_sreps::Int64)
         move!(r, side)
     end
 end
+
+inverse(side::HorizonSide)=HorizonSide(mod(Int(side)+2,4))

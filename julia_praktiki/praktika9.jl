@@ -1,7 +1,7 @@
 function find_marker(r)
     s :: HorizonSide = Nord
     n = 1
-    while ismarker(r) == false
+    while ismarker(r) == false #спиралевидное движение робота 
         do_steps_check_markers(r, s, n)
         s = next(s)
         do_steps_check_markers(r, s, n)

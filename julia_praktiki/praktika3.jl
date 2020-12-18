@@ -6,12 +6,7 @@ function mark_field(r::Robot)
     while isborder(r, Nord) == false
         putmarkers!(r, s)
         move!(r,Nord)
-        putmarker!(r)
-        if s == West
-            s = Ost
-        else
-            s = West
-        end
+        s = inverse(s)
     end
 
     
@@ -55,3 +50,5 @@ function do_steps(r::Robot, side::HorizonSide, nun_sreps::Int64)
         move!(r, side)
     end
 end
+
+inverse(side::HorizonSide)=HorizonSide(mod(Int(side)+2,4))

@@ -2,8 +2,9 @@ function ugli_polya!(r::Robot)
     a = []
     s::HorizonSide = Ost
     n = 0
-    while (isborder(r, Sud) == false || isborder(r, Ost) == false) && (isborder(r, Sud) == false || isborder(r, West) == false)
-        if isborder(r, s) == false
+    #опускаемся в левыый или правый нижний угол
+    while (isborder(r, Sud) == false || isborder(r, Ost) == false) && (isborder(r, Sud) == false || isborder(r, West) == false) 
+        if isborder(r, s) == false 
             n += 1
             move!(r, s)
         else
@@ -13,9 +14,9 @@ function ugli_polya!(r::Robot)
             move!(r, Sud)
         end
     end
-    while isborder(r, West) == false
+    while isborder(r, West) == false #юго-западный угол
         move!(r, West)
-        n += 1
+        n += 1 
     end
 
     side::HorizonSide = Nord

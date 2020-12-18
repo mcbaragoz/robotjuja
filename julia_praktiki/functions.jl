@@ -23,7 +23,7 @@ end
 
 function move_if_can(r::Robot, side::HorizonSide)
     while isborder(r, side) == false
-        move!(r)
+        move!(r, side)
     end
 end
 

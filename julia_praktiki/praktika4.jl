@@ -8,14 +8,15 @@ function mark_stairway(r::Robot)
         n += 1
         putmarker!(r)
         move!(r, West)
-
     end
 
     putmarker!(r)
     l = 0
+    
+
     while isborder(r, Nord) == false
         move!(r, Nord)
-        if s == Ost
+        if s == Ost  # направление влияет на очередность действий.
             k = n - l 
             for i in 1:k
                 putmarker!(r)
@@ -43,11 +44,11 @@ function mark_stairway(r::Robot)
     end
 
     while isborder(r, Sud) == false
-        move(r, Sud)
+        move!(r, Sud)
     end
 
     while isborder(r, Ost) == false
-        move(r, Ost)
+        move!(r, Ost)
     end
 
     do_steps(r, Nord, move1)
@@ -61,6 +62,16 @@ function putmarkers!(r::Robot, side::HorizonSide)
         move!(r, side)
     end
     putmarker!(r)
+end
+
+function stair(r::Robot, s::HorizonSide, k::Int64, l::Int64)
+    for i in 1:k
+        putmarker!(r)
+        move!(r, s)
+    end
+    for i in 1:l
+        move!(r, s)
+    end
 end
 
 function return_steps(r::Robot, side::HorizonSide)
@@ -77,4 +88,6 @@ function do_steps(r::Robot, side::HorizonSide, nun_sreps::Int64)
         move!(r, side)
     end
 end
+
+inverse(side::HorizonSide)=HorizonSide(mod(Int(side)+2,4))
 

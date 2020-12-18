@@ -4,8 +4,8 @@ function average_temp(r)
     n = 0
     while isborder(r, Nord) == false
         if ismarker(r) == true 
-            temp += temperature(r)
-            n += 1
+            temp += temperature(r) #сумма температур
+            n += 1 #число маркированных клеток
         end
         if isborder(r, s) == false
             move!(r, s)
@@ -26,7 +26,8 @@ function average_temp(r)
         n += 1
     end
     av = temp / n
-    print(av)
+    ##return(av)
+    return(n)
 
 end
 inverse(side::HorizonSide)=HorizonSide(mod(Int(side)+2,4))

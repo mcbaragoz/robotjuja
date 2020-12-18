@@ -1,11 +1,11 @@
 function mark_innerrectangle_perimetr!(r::Robot)
-    move1 = return_moves(r, Sud)
+    move1 = return_moves(r, Sud) #предусмотрен случай, когда робот находится над перегородкой
     move2 = return_moves(r, West)
     move3 = return_moves(r, Sud)
 
     direction_of_movement::HorizonSide = Nord
 
-    while isborder(r, Ost) == false
+    while isborder(r, Ost) == false #двигаемся до встречи робота с перегородкой с восточной стороны
         if isborder(r, direction_of_movement) == false
             move!(r, direction_of_movement)
         else
@@ -17,7 +17,7 @@ function mark_innerrectangle_perimetr!(r::Robot)
     s::HorizonSide = Nord
     border_direction::HorizonSide = Ost
 
-    for i ∈ 1:5
+    for i ∈ 1:5 #обходим перегородку, ставим маркеры
         putmarker!(r)
         while isborder(r, border_direction) == true
             move!(r,s)
@@ -28,7 +28,7 @@ function mark_innerrectangle_perimetr!(r::Robot)
         border_direction = next_clock(border_direction)
     end 
 
-    comeback(r, West)
+    comeback(r, West) #возвращает робота в юго-западный угол
 
 
     do_steps(r, Nord, move3)

@@ -1,6 +1,6 @@
 function mark_frame!(r::Robot)
-    move1 = return_moves(r, Sud)
-    move2 = return_moves(r, Ost)
+    move1 = return_moves(r, Sud) #перемещаем робота в юго-восточный угол, 
+    move2 = return_moves(r, Ost) #запоминаем количество сделанных шагов
 
     for side in (HorizonSide(i) for i=0:3)
         putmarkers!(r, side)

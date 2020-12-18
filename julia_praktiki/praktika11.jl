@@ -16,7 +16,6 @@ function return_moves_borders(r::Robot, side::HorizonSide)
     return nun_sreps
 end
 
-
 function move_if_possible_borders!(r::Robot, side::HorizonSide)::Bool
     side1 = next(side)
     side2 = next_clock(side)
